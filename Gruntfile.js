@@ -1,3 +1,5 @@
+const { task } = require("grunt");
+
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -16,9 +18,17 @@ module.exports = function (grunt) {
                 }
             }
         },
+        watch: {
+            less: {
+                files: ['src/styles/**/*.less'],
+                task: ['less:development']
+            }
+        }
     })
 
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.registerTask('default', ['less:development'])
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+    grunt.registerTask('default', ['watch'])
     grunt.registerTask('build', ['less:production'])
 }
